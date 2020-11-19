@@ -1,22 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import { getTasksData } from '../lib/tasks';
 import Spinner from './utilities/Spinner';
 
-const TaskContainer = () => {
-    const [tasks, setTasks] = useState(null);
-
-    useEffect(() => {
-        console.log('using efefef')
-        getTasksData(1)
-            .then((res) => res.json())
-            .then((data) => setTasks(data))
-            .catch((err) => console.log(err));
-    }, []);
-
+const TaskContainer = (props) => {
+    let tasks = props.data ? props.data.tasks : [];
     // Loading state
+    console.log(props, tasks)
     if (!tasks) return <Spinner />;
 
-    return <div>test</div>;
+    console.log(tasks);
+    return (
+        <div>
+            {tasks.length ? 
+            (tasks.map((task) => (
+                <div>
+                    {task.name}
+                </div>
+            )))
+            : 
+            (
+                <div>No Tasks Available</div>
+            )}
+        </div>
+    )
 }
 
 export default TaskContainer;

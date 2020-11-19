@@ -1,9 +1,13 @@
+import React, {useState, useEffect} from 'react';
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
 import TaskContainer from '../components/TaskContainer';
+import getTasksData from '../lib/tasks';
 import utilStyles from '../styles/utils.module.css';
 
 export default function Home() {
+	const tasks = getTasksData(1) || [];
+	console.log('taskstop', tasks)
 	return (
 		<Layout home>
 			<Head>
@@ -17,7 +21,7 @@ export default function Home() {
 				</p>
 			</section>
 			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-				<TaskContainer />
+				<TaskContainer data={tasks} />
 			</section>
 		</Layout>
 	)
